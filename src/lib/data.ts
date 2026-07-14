@@ -36,7 +36,9 @@ export async function getReceiverItems(userId: string, date: string): Promise<Re
     .eq("receiver_id", userId)
     .eq("enabled", true);
 
-  const active = (reqs || []).filter((r: RequestRow) => isActiveOnDate(r.days_of_week, date));
+  const active = (reqs || []).filter((r: RequestRow) =>
+    isActiveOnDate(r.days_of_week, r.created_at, date)
+  );
   if (active.length === 0) return [];
 
   const requestIds = active.map((r) => r.id);

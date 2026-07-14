@@ -41,8 +41,10 @@ export function dateLabel(dateStr: string, today: string): string {
   return `${d.getUTCMonth() + 1}월 ${d.getUTCDate()}일 (${days[d.getUTCDay()]})`;
 }
 
-// 요청이 특정 날짜에 활성인지 (days_of_week 비어있으면 매일)
-export function isActiveOnDate(daysOfWeek: number[], dateStr: string): boolean {
-  if (!daysOfWeek || daysOfWeek.length === 0) return true;
-  return daysOfWeek.includes(dayOfWeekKST(dateStr));
+// 요청이 특정 날짜에 활성인지.
+// - 반복 요일이 지정돼 있으면(days_of_week 비어있지 않음) 해당 요일에만 활성
+// - 반복 없음(비어있음)이면 '오늘 하루만' → 만든 날(KST)에만 활성
+export function isActiveOnDate(daysOfWeek: number[], createdAt: string, dateStr: string): boolean {
+  if (daysOfWeek && daysOfWeek.length > 0) return daysOfWeek.includes(dayOfWeekKST(dateStr));
+  return todayKST(new Date(createdAt)) === dateStr;
 }

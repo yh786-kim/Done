@@ -18,7 +18,7 @@ export default async function LoginPage() {
           <Check size={34} />
         </div>
         <h1 className="text-[32px] font-extrabold tracking-tight">
-          Done<span className="ml-px font-medium text-carrot">?</span>
+          했니<span className="ml-px font-medium text-carrot">?</span>
         </h1>
         <p className="mt-3 text-[15px] font-medium leading-relaxed text-muted">
           정해진 시간에 물어보고,

@@ -15,7 +15,8 @@ type Item = {
 const DAY_LABELS = ["일", "월", "화", "수", "목", "금", "토"];
 
 function daysText(days: number[]): string {
-  if (!days || days.length === 0) return "매일";
+  if (!days || days.length === 0) return "오늘 하루";
+  if (days.length === 7) return "매일";
   return days
     .slice()
     .sort((a, b) => a - b)

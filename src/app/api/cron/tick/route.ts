@@ -36,7 +36,7 @@ export async function GET(req: Request) {
 
   // 오늘 활성 + 예정 시각이 지났고(ring 창 안) 항목만
   const candidates = (reqs || []).filter((r: RequestRow) => {
-    if (!isActiveOnDate(r.days_of_week, date)) return false;
+    if (!isActiveOnDate(r.days_of_week, r.created_at, date)) return false;
     const delta = nowMin - toMin(r.schedule_time);
     return delta >= 0 && delta <= RING_WINDOW_MIN;
   }) as RequestRow[];

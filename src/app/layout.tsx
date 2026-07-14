@@ -4,13 +4,13 @@ import "./globals.css";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 export const metadata: Metadata = {
-  title: "Done — 했니?",
+  title: "했니?",
   description: "정해진 시간에 물어보고, 했는지 확인하는 앱",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Done",
+    title: "했니?",
   },
   icons: {
     icon: "/icons/icon.svg",

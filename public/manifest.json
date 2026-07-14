@@ -1,6 +1,6 @@
 {
-  "name": "Done — 했니?",
-  "short_name": "Done",
+  "name": "했니?",
+  "short_name": "했니?",
   "description": "정해진 시간에 물어보고, 했는지 확인하는 앱",
   "start_url": "/",
   "scope": "/",

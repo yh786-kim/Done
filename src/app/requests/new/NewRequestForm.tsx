@@ -10,7 +10,7 @@ export default function NewRequestForm() {
   const [receiverPhone, setReceiverPhone] = useState("");
   const [title, setTitle] = useState("");
   const [scheduleTime, setScheduleTime] = useState("08:00");
-  const [everyday, setEveryday] = useState(true);
+  const [repeat, setRepeat] = useState(false); // 기본: 오늘 하루만
   const [days, setDays] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -22,8 +22,8 @@ export default function NewRequestForm() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
-    if (!everyday && days.length === 0) {
-      setError("요일을 하나 이상 선택하거나 '매일'을 켜주세요.");
+    if (repeat && days.length === 0) {
+      setError("반복할 요일을 하나 이상 선택해주세요.");
       return;
     }
     setLoading(true);
@@ -35,7 +35,8 @@ export default function NewRequestForm() {
           receiverPhone,
           title,
           scheduleTime,
-          daysOfWeek: everyday ? [] : days,
+          // 반복 켜짐 → 선택 요일, 꺼짐 → 빈 배열(오늘 하루만)
+          daysOfWeek: repeat ? days : [],
         }),
       });
       const data = await res.json();
@@ -99,20 +100,31 @@ export default function NewRequestForm() {
       </div>
 
       <div>
-        <div className="mb-3 flex items-center justify-between">
-          <label className="text-[13px] font-semibold text-muted">반복</label>
-          <label className="flex items-center gap-2 text-sm">
-            <span className="font-medium text-muted">매일</span>
-            <input
-              type="checkbox"
-              checked={everyday}
-              onChange={(e) => setEveryday(e.target.checked)}
-              className="h-5 w-5 accent-carrot"
+        <div className="mb-2 flex items-center justify-between">
+          <div>
+            <label className="text-[13px] font-semibold text-muted">반복</label>
+            <p className="mt-0.5 text-xs font-medium text-faint">
+              {repeat ? "선택한 요일마다 반복해요" : "끄면 오늘 하루만 확인해요"}
+            </p>
+          </div>
+          {/* 반복 켜기/끄기 토글 */}
+          <button
+            type="button"
+            onClick={() => setRepeat((v) => !v)}
+            aria-label="반복"
+            className={`relative h-[26px] w-11 shrink-0 rounded-full transition-colors ${
+              repeat ? "bg-carrot" : "bg-track"
+            }`}
+          >
+            <span
+              className={`absolute top-[3px] h-5 w-5 rounded-full bg-white shadow transition-all ${
+                repeat ? "left-[21px]" : "left-[3px]"
+              }`}
             />
-          </label>
+          </button>
         </div>
-        {!everyday && (
-          <div className="flex gap-1.5">
+        {repeat && (
+          <div className="mt-3 flex gap-1.5">
             {DAY_LABELS.map((label, d) => (
               <button
                 key={d}
