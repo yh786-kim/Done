@@ -44,7 +44,9 @@ export async function sendPushToUser(userId: string, payload: PushPayload): Prom
       try {
         await webpush.sendNotification(
           { endpoint: s.endpoint, keys: s.keys } as webpush.PushSubscription,
-          JSON.stringify(payload)
+          JSON.stringify(payload),
+          // 높은 우선순위로 즉시 전달, 5분 지나면 만료(재알림이 매분 오므로 쌓이지 않게)
+          { urgency: "high", TTL: 300 }
         );
         sent++;
       } catch (err: unknown) {
