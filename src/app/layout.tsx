@@ -4,8 +4,9 @@ import "./globals.css";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://done-murakano.vercel.app"),
   title: "했니?",
-  description: "정해진 시간에 물어보고, 했는지 확인하는 앱",
+  description: "정해진 시간에 물어보고, 했는지 확인해요",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -15,6 +16,15 @@ export const metadata: Metadata = {
   icons: {
     icon: "/icons/icon-192.png",
     apple: "/icons/icon-192.png",
+  },
+  // 카카오톡/소셜 공유 미리보기 카드 (og:image 는 opengraph-image.tsx 가 자동 주입)
+  openGraph: {
+    title: "했니?",
+    description: "정해진 시간에 물어보고, 했는지 확인해요",
+    url: "https://done-murakano.vercel.app",
+    siteName: "했니?",
+    locale: "ko_KR",
+    type: "website",
   },
 };
 
