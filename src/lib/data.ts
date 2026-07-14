@@ -158,6 +158,39 @@ export async function getRequesterGroups(userId: string, date: string): Promise<
   return [...groups.values()];
 }
 
+// 요청 등록 화면용: 내가 이전에 등록한 대상/확인내용 목록 (최근순, 중복 제거)
+export type RequesterHistory = {
+  receivers: { phone: string; nickname: string | null }[];
+  titles: string[];
+};
+
+export async function getRequesterHistory(userId: string): Promise<RequesterHistory> {
+  const admin = getSupabaseAdmin();
+  const { data } = await admin
+    .from("requests")
+    .select("receiver_phone, title, created_at")
+    .eq("requester_id", userId)
+    .order("created_at", { ascending: false });
+
+  const rows = data || [];
+
+  // 최근순 유지하며 중복 제거
+  const phones: string[] = [];
+  const titles: string[] = [];
+  for (const r of rows) {
+    if (!phones.includes(r.receiver_phone)) phones.push(r.receiver_phone);
+    if (r.title && !titles.includes(r.title)) titles.push(r.title);
+  }
+
+  const { data: profs } = await admin.from("profiles").select("phone, nickname").in("phone", phones);
+  const nickByPhone = new Map((profs || []).map((p) => [p.phone, p.nickname]));
+
+  return {
+    receivers: phones.map((p) => ({ phone: p, nickname: nickByPhone.get(p) ?? null })),
+    titles,
+  };
+}
+
 export async function createRequest(input: {
   requesterId: string;
   receiverPhone: string;
