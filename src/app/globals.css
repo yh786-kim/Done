@@ -1,0 +1,90 @@
+/* Pretendard 폰트는 layout.tsx 에서 npm 패키지로 번들 import 합니다 (CDN 의존 제거). */
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────
+   Light (default)
+   ───────────────────────────────────────────── */
+:root {
+  --background: #f4f2ee;   /* 따뜻한 캔버스 */
+  --foreground: #191a1c;   /* 잉크 */
+  --card: #ffffff;
+  --border: #eceae4;       /* 헤어라인 */
+  --muted: #8a8b85;        /* 보조 텍스트 */
+  --faint: #a8a8a2;        /* 3차 텍스트 */
+
+  --carrot: #ea5a24;       /* 주요 액션 (유일한 포인트) */
+  --carrot-dark: #c74a18;  /* press */
+  --carrot-tint: #fbeadf;  /* 아이콘/뱃지 배경 */
+
+  --leaf: #1e9e5a;         /* 완료/성공 전용 */
+  --leaf-dark: #197e48;
+  --leaf-tint: #e9f4ed;
+
+  --track: #e6e3dc;        /* 토글 off / 진행바 트랙 */
+}
+
+/* ─────────────────────────────────────────────
+   Dark — 시스템 설정 자동 추종
+   ───────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #121210;
+    --foreground: #f3f1ec;
+    --card: #1e1d1a;
+    --border: #2e2c27;
+    --muted: #a8a69e;
+    --faint: #6f6d64;
+
+    --carrot: #ff6a32;
+    --carrot-dark: #ff824f;
+    --carrot-tint: rgba(255, 106, 50, 0.16);
+
+    --leaf: #35b570;
+    --leaf-dark: #58c98c;
+    --leaf-tint: rgba(53, 181, 112, 0.14);
+
+    --track: #38352d;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-carrot: var(--carrot);
+  --color-carrot-dark: var(--carrot-dark);
+  --color-carrot-tint: var(--carrot-tint);
+  --color-leaf: var(--leaf);
+  --color-leaf-dark: var(--leaf-dark);
+  --color-leaf-tint: var(--leaf-tint);
+  --color-track: var(--track);
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", Roboto, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+/* 모바일 앱 느낌: 최대 폭 제한한 중앙 컬럼 */
+.app-shell {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+}
