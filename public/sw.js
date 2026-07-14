@@ -17,8 +17,8 @@ self.addEventListener("push", (event) => {
   event.waitUntil(
     self.registration.showNotification(data.title, {
       body: data.body,
-      icon: "/icons/icon.svg",
-      badge: "/icons/icon.svg",
+      icon: "/icons/icon-192.png",
+      badge: "/icons/icon-192.png",
       tag: data.tag, // 같은 항목은 하나로 갱신
       renotify: true, // 갱신 시에도 소리/진동 다시 울림
       requireInteraction: true, // 사용자가 반응할 때까지 알림 유지
