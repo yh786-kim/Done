@@ -9,7 +9,7 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("push", (event) => {
-  let data = { title: "Done", body: "확인할 내용이 있어요", url: "/me" };
+  let data = { title: "했니?", body: "확인할 내용이 있어요", url: "/me" };
   try {
     if (event.data) data = { ...data, ...event.data.json() };
   } catch {}

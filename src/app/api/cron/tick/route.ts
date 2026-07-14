@@ -73,8 +73,8 @@ export async function GET(req: Request) {
     if (!dueToNotify) continue;
 
     const sent = await sendPushToUser(r.receiver_id!, {
-      title: "Done 확인 요청",
-      body: `${r.title} — 했으면 눌러서 확인해주세요`,
+      title: r.title, // 확인 내용을 제목으로 (예: "양치했니?")
+      body: "했으면 눌러서 확인해 주세요",
       url: "/me",
       tag: `req-${r.id}-${date}`,
       requestId: r.id,
